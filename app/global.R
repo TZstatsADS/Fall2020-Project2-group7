@@ -106,9 +106,6 @@ data <- data.frame(
 sales_data = read.csv('../data/case-hosp-death.csv')
 date <- as.Date(sales_data$DATE_OF_INTEREST,"%m/%d/%Y")
 cases <- as.numeric(sales_data$CASE_COUNT)
-<<<<<<< HEAD
-sales_data <- xts(cases,date)
-=======
 sales_data <- xts(cases,date)
 
->>>>>>> 014180c6b4f48651b7f5485d3af1911701f3d20d
+
