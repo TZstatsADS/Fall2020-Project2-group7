@@ -107,5 +107,5 @@ sales_data = read.csv('../data/case-hosp-death.csv')
 date <- as.Date(sales_data$DATE_OF_INTEREST,"%m/%d/%Y")
 cases <- as.numeric(sales_data$CASE_COUNT)
 sales_data <- xts(cases,date)
-
+colnames(sales_data)<- "Cases"
 
