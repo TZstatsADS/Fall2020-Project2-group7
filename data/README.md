@@ -2,5 +2,5 @@
 
 ### Data folder
 
-The data directory contains data used in the analysis. This is treated as read only; in paricular the R files are never allowed to write to the files in here. There are csv files, and the directory itself has a subdirectorie.
+The data directory contains data used in the analysis. This is treated as read only; in paricular the R files are never allowed to write to the files in here. There are csv files, and the directory itself has a sub folder for weather data.
 
