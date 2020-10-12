@@ -1,24 +1,26 @@
 ﻿id,start,end,content
-1,3/3/2020,,The first case of COVID-19 was confirmed in New York State
-3,3/9/2020,,Mayor Bill de Blasio announced that there were 16 confirmed cases of COVID-19 in New York City.[16]
-4,3/25/2020,,Deaths start and cases increases
-5,3/27/2020,,infection rises and Queens hardest hit
-6,3/28/2020,,Deaths start and cases increases
-7,3/29/2020,,Deaths start and cases increases
-8,3/30/2020,,"The USNS Comfort hospital ship arrived in New York Harbor, Field hospitals set up and, Refrigerator trucks for bodies"
-9,3/31/2020,,first chield death in NYC
-10,4/4/2020,,"Governor Cuomo announced that the Chinese  government had arranged for a donation of 1,000 ventilators, Trump sets up Urban Area Medical Task Forces and, NY Stae National Guard deployed"
-11,4/5/2020,,Bronx Zoo tiger infected by COVID 19
-12,4/22/2020,,four more tigers and three lions tested positive for COVID 19
-13,5/10/2020,,"De Blasio reports 38 children affected by MIS - C  which is linked to an immune response to COVID 19, two children died"
-14,5/19/2020,,highest record of cases
-15,5/26/2020,,Cases of children increase for COVID and MIS - C symptoms
-16,6/8/2020,,the first phase of its reopening plan
-17,6/24/2020,,require travelers to self-quarantine for 14 days
-18,7/11/2020,,first dog test positive for Covid-19 died
-19,8/5/2020,," de Blasio announced that COVID-19 checkpoints would be set up at major crossings and tunnels to help enforcement of a mandatory 14-day quarantine for travelers from areas of a high transmission rate per Cuomo's order in coordination with the New York's Sheriff department.Failure to comply with this order would result in fines ranging from $2,000 to US$10,000 with de Blasio adding ""We’re not going to let our hard work slip away and will continue to do everything we can to keep New Yorkers safe and healthy."
-20,8/17/2020,,"Cuomo announced gyms and fitness centers would be able to reopen starting August 24 and no later than September 2. Gyms would be required to limit their capacity to 33%, mandate mask wearing at all times, as well as having proper ventilation systems."
-21,9/1/2020,,"some types of businesses have not been allowed to open regardless of the phase, including but not limited to concert venues, nightclubs, and arenas."
-22,9/9/2020,,Cuomo announced New York City would be permitted to resume indoor dining services at 25 percent capacity on September 30.
-23,9/17/2020,,"Blasio announced the shift of the start of the school year again, opting for a phased approach, due to continued obstacles including teacher shortages. Pre-K and students with special needs would begin on September 21, with elementary student schools opening by September 29, and middle / high school students opened up on October 1."
-24,9/25/2020,,de Blasio in an interview with WNYC announced the outdoor dining and open streets programs would be extended indefinitely. The Open Restaurants program was set to expire on October 31.
+1,3/3/2020,,The first COVID-19 case
+3,3/9/2020,,16 confirmed cases
+4,3/25/2020,,News anouncements ramping of COVID-19
+5,3/27/2020,,Queens hardest hit
+6,3/28/2020,,News anouncements ramping of COVID-19
+7,3/29/2020,,News anouncements ramping of COVID-19
+8,3/30/2020,,"USNS Hospital ship, Field Hospitals and, Refrigerator trucks for bodies"
+9,3/31/2020,,First child death
+10,4/4/2020,,"Chinese donate 1,000 ventilators, Urban Area Medical Task Forces and, National Guard deployed"
+11,4/5/2020,,Bronx Zoo tiger infected
+12,4/6/2020,,Highest number of cases
+13,4/22/2020,,Other Bronx animals infected
+14,5/10/2020,,"38 children affected by MIS - C, two children died"
+15,5/19/2020,,90% of cases tested positive
+16,5/26/2020,,Increase COVID and MIS - C symptoms in children
+17,6/8/2020,,Reopening plan (first phase)
+18,6/24/2020,,Self-quarantine for 14 days
+19,7/11/2020,,First dog died
+20,8/5/2020,,Checkpoints set up to enforce quarantine
+21,8/17/2020,,Plans to open gyms and fitness centers
+22,9/1/2020,,Large venues and recreation still closed
+23,9/9/2020,,Plans for indoor dining
+24,9/17/2020,,Shift the start of the school year
+25,9/25/2020,,Outdoor dining is extended
+26,9/30/2020,,Start of Indoor dining
