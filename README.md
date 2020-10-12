@@ -1,4 +1,4 @@
-# Project 2: Shiny App Development
+# Project 2: COVID-19 AS WE KNOW IT!
 
 ### [Project Description](doc/project2_desc.md)
 
