@@ -23,6 +23,12 @@ library(plotly)
 library(ggplot2)
 library(timevis)
 library(shinydashboard)
+library(tigris)
+library(sp)
+library(DT)
+
+
+
 #can run RData directly to get the necessary date for the app
 #global.r will enable us to get new data everyday
 #update data with automated script
@@ -151,13 +157,9 @@ shinyServer(function(input, output, session) {
     ggplotly(plot3)
   })
   #tab 3
-  
-  tabPanel('Restaurant & COVID',
-           
-           
-           
-           # test <- restaurant_with_covid_s[input$range[1]:input$range[2],],
-           
+  char_zips <- zctas(cb = TRUE,state="NY") 
+  #char_zips$GEOID10 <- as.integer(char_zips$GEOID10)
+
            output$canting <- DT::renderDataTable({
              stateFilter <- subset(restaurant_with_covid_s,
                                    restaurant_with_covid_s$CUISINE == input$cai &
@@ -166,25 +168,82 @@ shinyServer(function(input, output, session) {
                                         restaurant_with_covid_s$POSITIVE_RATE <= max(input$range)))
              # stateFilter <- filter(stateFilter, POSITIVE_RATE %in% input$rate)
            })
+           df_new_new<-reactive({
+             if(is.null(input$boro)){
+               true_area = as.vector(unlist(unique(restaurant_with_covid_s['BORO'])))
+             } else {
+               true_area = input$boro
+             }
+               
+             
+             if(is.null(input$cai)) {
+               true_cai = as.vector(unlist(unique(restaurant_with_covid_s['CUISINE'])))
+             } else {
+               true_cai= input$cai
+             }
+               
+             
+             wxl<-restaurant_with_covid_s %>%
+               filter(CUISINE %in% true_cai &
+                        BORO %in% true_area) %>%
+               group_by(ZIPCODE) %>%
+               mutate(restaurant_number=n()) %>% 
+               filter(row_number(POSITIVE_RATE) == 1) %>%
+               dplyr::select(ZIPCODE,POSITIVE_RATE,restaurant_number)
+            wxl$ZIPCODE<-as.character(wxl$ZIPCODE)
+            geo_join(spatial_data = char_zips, 
+                     data_frame = wxl, 
+                      by_sp = "GEOID10", 
+                      by_df = "ZIPCODE",
+                      how = "inner")
+           })
+          
+           
+           output$map_density <- renderLeaflet({
+             char_zips = df_new_new()
+             
+           pal <- colorNumeric(
+             palette = "Reds",
+             domain = as.data.frame(char_zips)$POSITIVE_RATE)
+           
+           # create labels for zipcodes
+           labels <- 
+             paste0(
+               "Zip Code: ",
+               as.data.frame(char_zips)$GEOID10, "<br/>",
+               "Number of Restaurants: ",as.data.frame(char_zips)$restaurant_number, "<br/>",
+               "Covid-19 Positive Rate: ",as.data.frame(char_zips)$POSITIVE_RATE) %>%
+             lapply(htmltools::HTML)
+           
+           leaflet(char_zips) %>%
+             # add base map
+             addTiles() %>% 
+             setView(-74.0260,40.7236, 11) %>%
+             # add zip codes
+             addPolygons(fillColor = ~pal(POSITIVE_RATE),
+                         weight = 2,
+                         opacity = 1,
+                         color = "white",
+                         dashArray = "3",
+                         fillOpacity = 0.7,
+                         highlight = highlightOptions(weight = 2,
+                                                      color = "#666",
+                                                      dashArray = "",
+                                                      fillOpacity = 0.7,
+                                                      bringToFront = TRUE),
+                         label = labels) %>%
+             # add legend
+             leaflet::addLegend(pal = pal, 
+                                values = as.data.frame(char_zips)$POSITIVE_RATE, 
+                                opacity = 0.7, 
+                                title = htmltools::HTML("Covid Rate "),
+                                position = "bottomleft")
+           
+           })         
            
            
-           
-           
-  )
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   
 })
 

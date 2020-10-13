@@ -23,7 +23,7 @@ library(plotly)
 library(ggplot2)
 library(timevis)
 library(shinydashboard)
-#load('./output/covid-19.RData')
+212#load('./output/covid-19.RData')
 
 
 shinyUI(
@@ -129,14 +129,17 @@ shinyUI(
                                        selectInput("boro", "Choose the Borough",
                                                    choices = restaurant$BORO,
                                                    multiple = T),
-                                       selectInput("cai","Select the cuisine/food you like",
-                                                   choices = restaurant$CUISINE),
-                                       sliderInput("range","Covid Positive Rate ()",0,7,.1, value = c(0,1))
+                                       selectInput("cai","Select the Cuisine/Food You Like",
+                                                   choices = restaurant$CUISINE, multiple = T),
+                                       sliderInput("range","Covid Positive Rate",0,7,.1, value = c(0,1))
                                        
                                      ),
                                      mainPanel(
-                                       #leafletOutput("map",height = "700px"),
-                                       DT::dataTableOutput("canting")
+                                       
+                                         leafletOutput("map_density",height = "315px"),
+                                         DT::dataTableOutput("canting")
+                                       
+                                       
                                        
                                      )
                                    )
