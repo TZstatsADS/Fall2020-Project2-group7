@@ -147,7 +147,7 @@ shinyServer(function(input, output, session) {
   output$time2 <- renderPlotly({
     data=sub_data()
     plot3<- ggplot(data) +
-      geom_line(aes(x= Date, y=Avg_temp, color="red"),group = 1, size=2)+
+      geom_line(aes(x= Date, y=Avg_temp, color="red"),group = 1, size=.5)+
       scale_colour_manual(values="red", name="Temp")+
       scale_x_date(date_labels = "%b/%d")+
       ggtitle("Daily Temperature in NYC")+ 
@@ -159,91 +159,99 @@ shinyServer(function(input, output, session) {
   #tab 3
   char_zips <- zctas(cb = TRUE,state="NY") 
   #char_zips$GEOID10 <- as.integer(char_zips$GEOID10)
-
-           output$canting <- DT::renderDataTable({
-             stateFilter <- subset(restaurant_with_covid_s,
-                                   restaurant_with_covid_s$CUISINE == input$cai &
-                                     restaurant_with_covid_s$BORO == input$boro &
-                                     (restaurant_with_covid_s$POSITIVE_RATE >= min(input$range) & 
-                                        restaurant_with_covid_s$POSITIVE_RATE <= max(input$range)))
-             # stateFilter <- filter(stateFilter, POSITIVE_RATE %in% input$rate)
-           })
-           df_new_new<-reactive({
-             if(is.null(input$boro)){
-               true_area = as.vector(unlist(unique(restaurant_with_covid_s['BORO'])))
-             } else {
-               true_area = input$boro
-             }
-               
-             
-             if(is.null(input$cai)) {
-               true_cai = as.vector(unlist(unique(restaurant_with_covid_s['CUISINE'])))
-             } else {
-               true_cai= input$cai
-             }
-               
-             
-             wxl<-restaurant_with_covid_s %>%
-               filter(CUISINE %in% true_cai &
-                        BORO %in% true_area) %>%
-               group_by(ZIPCODE) %>%
-               mutate(restaurant_number=n()) %>% 
-               filter(row_number(POSITIVE_RATE) == 1) %>%
-               dplyr::select(ZIPCODE,POSITIVE_RATE,restaurant_number)
-            wxl$ZIPCODE<-as.character(wxl$ZIPCODE)
-            geo_join(spatial_data = char_zips, 
-                     data_frame = wxl, 
-                      by_sp = "GEOID10", 
-                      by_df = "ZIPCODE",
-                      how = "inner")
-           })
-          
-           
-           output$map_density <- renderLeaflet({
-             char_zips = df_new_new()
-             
-           pal <- colorNumeric(
-             palette = "Reds",
-             domain = as.data.frame(char_zips)$POSITIVE_RATE)
-           
-           # create labels for zipcodes
-           labels <- 
-             paste0(
-               "Zip Code: ",
-               as.data.frame(char_zips)$GEOID10, "<br/>",
-               "Number of Restaurants: ",as.data.frame(char_zips)$restaurant_number, "<br/>",
-               "Covid-19 Positive Rate: ",as.data.frame(char_zips)$POSITIVE_RATE) %>%
-             lapply(htmltools::HTML)
-           
-           leaflet(char_zips) %>%
-             # add base map
-             addTiles() %>% 
-             setView(-74.0260,40.7236, 11) %>%
-             # add zip codes
-             addPolygons(fillColor = ~pal(POSITIVE_RATE),
-                         weight = 2,
-                         opacity = 1,
-                         color = "white",
-                         dashArray = "3",
-                         fillOpacity = 0.7,
-                         highlight = highlightOptions(weight = 2,
-                                                      color = "#666",
-                                                      dashArray = "",
-                                                      fillOpacity = 0.7,
-                                                      bringToFront = TRUE),
-                         label = labels) %>%
-             # add legend
-             leaflet::addLegend(pal = pal, 
-                                values = as.data.frame(char_zips)$POSITIVE_RATE, 
-                                opacity = 0.7, 
-                                title = htmltools::HTML("Covid Rate "),
-                                position = "bottomleft")
-           
-           })         
-           
-           
   
-
+  output$canting <- DT::renderDataTable({
+    
+    stateFilter <- subset(restaurant_with_covid_s,
+                          restaurant_with_covid_s$CUISINE == input$cai_restartant &
+                            restaurant_with_covid_s$BORO == input$boro_restartant &
+                            (restaurant_with_covid_s$POSITIVE_RATE >= min(input$range_restartant) & 
+                               restaurant_with_covid_s$POSITIVE_RATE <= max(input$range_restartant)))
+  })
+  df_new_new<-reactive({
+    if(is.null(input$boro)){
+      true_area = as.vector(unlist(unique(restaurant_with_covid_s$BORO)))
+    } else {
+      true_area = input$boro
+    }
+    
+    if(is.null(input$cai)) {
+      true_cai = as.vector(unlist(unique(restaurant_with_covid_s$CUISINE)))
+    } else {
+      true_cai= input$cai
+    }
+    if(is.null(input$range)) {
+      true_rate_max = max(restaurant_with_covid_s$POSITIVE_RATE)
+      true_rate_min = min(restaurant_with_covid_s$POSITIVE_RATE)
+    } else {
+      true_rate_max= max(input$range)
+      true_rate_min= min(input$range)
+    }
+    
+    
+    wxl<-restaurant_with_covid_s %>%
+      filter(CUISINE %in% true_cai &
+               BORO %in% true_area & 
+               (POSITIVE_RATE <= true_rate_max) &
+               (POSITIVE_RATE >= true_rate_min)) %>%
+      group_by(ZIPCODE) %>%
+      mutate(restaurant_number=n()) %>% 
+      filter(row_number(POSITIVE_RATE) == 1) %>%
+      dplyr::select(ZIPCODE,POSITIVE_RATE,restaurant_number)
+    wxl$ZIPCODE<-as.character(wxl$ZIPCODE)
+    geo_join(spatial_data = char_zips, 
+             data_frame = wxl, 
+             by_sp = "GEOID10", 
+             by_df = "ZIPCODE",
+             how = "inner")
+  })
+  
+  
+  output$map_density <- renderLeaflet({
+    char_zips = df_new_new()
+    
+    pal <- colorNumeric(
+      palette = "Reds",
+      domain = as.data.frame(char_zips)$POSITIVE_RATE)
+    
+    # create labels for zipcodes
+    labels <- 
+      paste0(
+        "Zip Code: ",
+        as.data.frame(char_zips)$GEOID10, "<br/>",
+        "Number of Restaurants: ",as.data.frame(char_zips)$restaurant_number, "<br/>",
+        "Covid-19 Positive Rate: ",as.data.frame(char_zips)$POSITIVE_RATE) %>%
+      lapply(htmltools::HTML)
+    
+    leaflet(char_zips) %>%
+      # add base map
+      addTiles() %>% 
+      setView(-74.0260,40.7236, 11) %>%
+      # add zip codes
+      addPolygons(fillColor = ~pal(POSITIVE_RATE),
+                  weight = 2,
+                  opacity = 1,
+                  color = "white",
+                  dashArray = "3",
+                  fillOpacity = 0.7,
+                  highlight = highlightOptions(weight = 2,
+                                               color = "#666",
+                                               dashArray = "",
+                                               fillOpacity = 0.7,
+                                               bringToFront = TRUE),
+                  label = labels) %>%
+      # add legend
+      leaflet::addLegend(pal = pal, 
+                         values = as.data.frame(char_zips)$POSITIVE_RATE, 
+                         opacity = 0.7, 
+                         title = htmltools::HTML("Covid Rate "),
+                         position = "bottomleft")
+    
+  })         
+  
+  
+  
+  
   
 })
 

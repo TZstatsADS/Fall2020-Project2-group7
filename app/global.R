@@ -145,19 +145,15 @@ head(joined_data)
 
 write.csv(joined_data, file='../output/joined_weather_case_data.csv')
 
+#tab restaurent
 
-
-
-restaurant <- read.csv('../data/restaurant_data_cleaned.csv')
 covid_case <- read.csv('../data/recent-4-week-by-modzcta.csv')
 covid_case <- covid_case[c('MODIFIED_ZCTA','PERCENT_POSITIVE_4WEEK')]
 names(covid_case)[names(covid_case) == "PERCENT_POSITIVE_4WEEK"] <- "POSITIVE_RATE"
 
+restaurant <- read.csv('../data/restaurant_data_cleaned.csv')
+restaurant <- restaurant %>% distinct(NAME,STREET,BUILDING,.keep_all = TRUE)
 names(restaurant)[names(restaurant) == "CUISINE.DESCRIPTION"] <- "CUISINE"
 
-restaurant_with_covid <- restaurant %>% inner_join(covid_case, by = c('ZIPCODE' = 'MODIFIED_ZCTA' ))
+restaurant_with_covid <- restaurant %>% left_join(covid_case, by = c("ZIPCODE" = "MODIFIED_ZCTA" ))
 restaurant_with_covid_s <- restaurant_with_covid[c('NAME','BORO','CUISINE','ZIPCODE','STREET','POSITIVE_RATE')]
-
-#a <- restaurant_with_covid_s %>% group_by(ZIPCODE) %>% mutate(number=n()) %>% filter(row_number(POSITIVE_RATE) == 1)
-#View(a)
-
