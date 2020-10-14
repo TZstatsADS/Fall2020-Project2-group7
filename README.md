@@ -34,7 +34,8 @@ Term: Fall 2020
 + Mengyao He: created/fixed the 2nd tab and edited 1st, 4th and, 5th tabs; fixed code errors in all the tabs, found city weather data, created timeline dataset, compiled all tabs, helped to organize files, deployed the app
 + Luyao Sun: created 4th tab and edited 1st and 5th tabs, created timeline dataset, compiled all tabs, helped to organize files and make edits to over appearance of app, deployed the app
 + Wannian Lou: found the restaurent dataset, created timeline dataset
-+ Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
+
+Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
 ```
 proj/
