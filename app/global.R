@@ -99,10 +99,7 @@ if (!require("shinydashboard")) {
 }
 
 #--------------------------------------------------------------------
-#setwd("~/ADS/Fall2020-Project2-group7/data")
-
 data <- read.csv("../data/Events.csv")
-View(data)
 colnames(data) <- c("id", "start","end","content")
 data$start <- as.Date(data$start,"%m/%d/%Y")
 data <- data.frame(
@@ -117,27 +114,13 @@ sales_data <- xts(cases,date)
 colnames(sales_data)<- "Cases"
 #--------------------------------------------------------------------------------------------------------
 # tab 2
-
-#get the daily NYC confirmed cases data from API
-#Cases_URL <- getURL("https://raw.githubusercontent.com/nychealth/coronavirus-data/master/case-hosp-death.csv")
-#NYC_cases <- read.csv(text = Cases_URL)
 NYC_cases <- (read.csv('../data/case-hosp-death.csv'))
-#read policy file 
-#events<-read.csv("data/Events.csv")
 daily_case<-NYC_cases%>%
   #mutate(DATE = as.factor(DATE_OF_INTEREST))%>%
   mutate(DATE = as.Date(DATE_OF_INTEREST,format='%m/%d/%Y'))%>%
   filter(DATE>="2020-02-29"& DATE<="2020-09-30")%>%
   select(DATE,CASE_COUNT)
 tail(daily_case,10)    #Not accumulative counts, date range: 2/29 ~ 9/30
-
-
-#event_data<-events%>%
-#  mutate(DATE = as.character(Date))%>%
-#  mutate(DATE = as.Date(DATE,format='%m/%d/%Y')
-
-
-
 
 write.csv(daily_case, file='../output/NYC_covid-19.csv')
 
@@ -150,11 +133,6 @@ nyc_case<-nyc_case_data%>%
 
 
 weather_data<-read.csv("../output/Avrage_tem.csv")
-#weather_data$Date<-substr(weather_data$Date, 1,5)
-
-
-#weather_data$Date<-paste(weather_data$Date,"20", sep = "")
-#weather_data$Date<-as.Date(weather_data$Date,"%d-%b-%Y")
 
 cleaned_weather<-weather_data%>%
   mutate(Date = as.Date(weather_data$Date,"%m/%d/%Y"))%>%
@@ -167,24 +145,15 @@ head(joined_data)
 
 write.csv(joined_data, file='../output/joined_weather_case_data.csv')
 
+#tab restaurent
 
-
-
-restaurant <- read.csv('../data/restaurant_data_cleaned.csv')
 covid_case <- read.csv('../data/recent-4-week-by-modzcta.csv')
 covid_case <- covid_case[c('MODIFIED_ZCTA','PERCENT_POSITIVE_4WEEK')]
 names(covid_case)[names(covid_case) == "PERCENT_POSITIVE_4WEEK"] <- "POSITIVE_RATE"
+
+restaurant <- read.csv('../data/restaurant_data_cleaned.csv')
+restaurant <- restaurant %>% distinct(NAME,STREET,BUILDING,.keep_all = TRUE)
 names(restaurant)[names(restaurant) == "CUISINE.DESCRIPTION"] <- "CUISINE"
-# complete_covid_case <- merge(covid_case,zip_code_db,
-#                              by.x = 'MODIFIED_ZCTA', by.y = 'zipcode')
-# complete_covid_case <- complete_covid_case[c('MODIFIED_ZCTA','PERCENT_POSITIVE_4WEEK',
-#                                              'lat','lng')]
 
-restaurant_with_covid <- restaurant %>% left_join(covid_case, by = c('ZIPCODE' = 'MODIFIED_ZCTA' ))
+restaurant_with_covid <- restaurant %>% left_join(covid_case, by = c("ZIPCODE" = "MODIFIED_ZCTA" ))
 restaurant_with_covid_s <- restaurant_with_covid[c('NAME','BORO','CUISINE','ZIPCODE','STREET','POSITIVE_RATE')]
-# view(restaurant_with_covid)
-
-
-
-
-

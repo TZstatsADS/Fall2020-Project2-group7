@@ -5,8 +5,8 @@ account: columbiaproject2
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2989718
-bundleId: 3726825
+bundleId: 3737638
 url: https://columbiaproject2.shinyapps.io/Project_2_Group_7_COVID/
-when: 1602440806.20911
+when: 1602651165.01976
 asMultiple: FALSE
 asStatic: FALSE
