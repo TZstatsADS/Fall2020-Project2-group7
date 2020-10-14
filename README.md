@@ -1,10 +1,8 @@
-# Project 2: Shiny App Development
+# Project 2: COVID-19 AS WE KNOW IT!
 
 ### [Project Description](doc/project2_desc.md)
 
-![screenshot](doc/figs/map.jpg)
-
-In this second project of GR5243 Applied Data Science, we develop a *Exploratory Data Analysis and Visualization* shiny app on a topic of your choice using [JHU CSSE Covid-19 Data](https://github.com/CSSEGISandData/COVID-19) or NYC Health open data released on the [NYC Coronavirus Disease 2019 Data](https://github.com/nychealth/coronavirus-data) website. See [Project 2 Description](doc/project2_desc.md) for more details.  
+In this second project of GR5243 Applied Data Science, we develop a *Exploratory Data Analysis and Visualization* shiny app about COVID-19 topic using [JHU CSSE Covid-19 Data](https://github.com/CSSEGISandData/COVID-19) or NYC Health open data released on the [NYC Coronavirus Disease 2019 Data](https://github.com/nychealth/coronavirus-data) website. See [Project 2 Description](doc/project2_desc.md) for more details.  
 
 The **learning goals** for this project is:
 
@@ -15,23 +13,27 @@ The **learning goals** for this project is:
 - systems development/design life cycle
 - shiny app/shiny server
 
-*The above general statement about project 2 can be removed once you are finished with your project. It is optional.
 
-## Project Title Lorem ipsum dolor sit amet
+## COVID-19 AS WE KNOW IT!
 Term: Fall 2020
 
-+ Team #
-+ **Projec title**: + Team members
-	+ team member 1
-	+ team member 2
-	+ team member 3
-	+ team member 4
-	+ team member 5
++ Team 7
++ Team members:
+	+ Sneha Swati
+	+ Siyu Duan
+	+ Mengyao He
+	+ Luyao Sun
+	+ Wannian Lou
 
-+ **Project summary**: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
++ **Project summary**: This project is titled COVID-19 as we know it because it is a play on words for Life as we know it. Our life has been turned upside down because of COVID. So many important and life changing events have occured, odd facts about COVID have been spread and, our usual spots have been up rooted. This app provides the sure with a timeline of all the events that have unfolded from Feb. 29th 2020 to Sep. 30th, 2020. It also helps to disprove the Presidents theory about temperature and its relationship to COVID cases. Lastly, this app helps the user find a new and safe handgout spot/restaurent. 
 
-+ **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement. 
++ **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members approve our work presented in this GitHub repository including this contributions statement. 
 
++ Sneha Swati: Created skeleton structure to the app (ui, server and global), developed the 1st, 2nd, 5th tabs, created the timeline of tasks to be done/organized work and updated the read me, created code to compile weather data of cities, found 10 city weather data, compiled all tabs 
++ Siyu Duan: Created 3rd tab and edited 1st and 5th tabs, fixed code errors in all the tabs, found 11 city weather data, created timeline dataset, compiled all tabs, created google doc for notes 
++ Mengyao He: created/fixed the 2nd tab and edited 1st and 5th tabs, fixed code errors in all the tabs, found 11 city weather data, created timeline dataset, compiled all tabs, helped to organize files 
++ Luyao Sun: created 4th tab and edited 1st and 5th tabs, created timeline dataset, compiled all tabs, helped to organize files and make edits to over appearance of app
++ Wannian Lou: found the restaurent dataset, created timeline dataset
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
 ```
